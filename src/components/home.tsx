@@ -10,12 +10,10 @@ from "react-native";
 import CardView from 'react-native-cardview';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function Home(navigation:any){
+export default function Home({navigation}: {navigation: any}){
 const [notes,setNotes]=useState<string>('0')
 
-function check () {
-setNotes('10')
-}
+
 const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
 return(
 
@@ -40,7 +38,7 @@ return(
 </View>
 <View style={styles.secondView}>
            
-           <TouchableOpacity activeOpacity={.9} style={styles.writeButton} >       
+           <TouchableOpacity activeOpacity={.9} style={styles.writeButton} onPress={() => navigation.navigate('WriteNote')} >       
               <MaterialIcon name="pencil-outline" size={hp('3.20%')} color="white"  />
               <Text style={{color:'white',fontSize:hp('1.80')}}> Create</Text>
            </TouchableOpacity>
