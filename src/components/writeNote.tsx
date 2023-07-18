@@ -12,20 +12,26 @@ import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function WriteNote ({navigation}: {navigation: any}){
 
-
+    const [text, onChangeText] = React.useState('');
 
 
     return(
 
         <View style={styles.mainContainer}>
-       
-    <CardView
-                cornerRadius={5}
-                style={styles.item}>
-                  <TouchableOpacity activeOpacity={1} >
+           <View style={styles.headingView}>
+           <MaterialIcon name={'arrow-left'} size={hp('3%')} color={'black'}   />
+           <MaterialIcon name={'content-save'} size={hp('3%')} color={'black'}   />      
+           </View>
+
+          <TextInput
+                   style={styles.input}
+                   onChangeText={onChangeText}
+                   value={text}
+                   placeholderTextColor={'gray'}
+                   placeholder={"write your note"}
+
+              />
     
-                  </TouchableOpacity>
-    </CardView>
     
     <View style={styles.secondView}>
                
@@ -76,19 +82,18 @@ export default function WriteNote ({navigation}: {navigation: any}){
         },
     
       item: {
-         height : hp('27%'),
-         width : wp(' 50%'),
-         backgroundColor:'orange',
+         height : hp('97%'),
+         width : wp(' 97%'),
+         backgroundColor:'white',
          borderRadius:8,
          shadowColor: '#000000',
          shadowOffset: { width: 0, height: 1 },
-         shadowOpacity: 0.9,
+         shadowOpacity: 30,
          shadowRadius: 3,
          elevation: 6,
          marginRight:wp('1'),
-         marginLeft: wp('1%'),
-         marginTop:hp('.80%'),
-         marginBottom:hp('.50')
+         marginLeft: wp('1.5%'),
+         marginTop:hp('1.5%'),
       },
       writeButton:{
         width:wp('35'),
@@ -113,6 +118,17 @@ export default function WriteNote ({navigation}: {navigation: any}){
          height:hp('12'),
          flexDirection:'row',
          justifyContent:'flex-end',
+    
+      },
+      input:{
+        height: hp('17%'),
+        width: wp('97%'),
+        color: 'black',
+        fontSize: hp('1.80%'),
+        paddingLeft: wp('2%'),
+        marginLeft:wp('3'),
+
+    
     
       },
     
