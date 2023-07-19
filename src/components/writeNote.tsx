@@ -12,24 +12,34 @@ import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function WriteNote ({navigation}: {navigation: any}){
 
-    const [text, onChangeText] = React.useState('');
-
+    const [title, onChangeTitle] = React.useState('');
+    const [note, onChangeNote] = React.useState('');
 
     return(
 
         <View style={styles.mainContainer}>
            <View style={styles.headingView}>
            <MaterialIcon name={'arrow-left'} size={hp('3%')} color={'black'}   />
-           <MaterialIcon name={'content-save'} size={hp('3%')} color={'black'}   />      
+           <MaterialIcon name={'content-save'} size={hp('3%')} color={'black'} style={{marginRight:wp('15')}}  />      
            </View>
+           <TextInput
+                   style={styles.title}
+                   onChangeText={onChangeTitle}
+                   value={title}
+                   placeholderTextColor={'gray'}
+                   placeholder={"Title"}
+                   multiline={true}
+                   textAlignVertical={'top'}
+              />
 
           <TextInput
                    style={styles.input}
-                   onChangeText={onChangeText}
-                   value={text}
+                   onChangeText={onChangeNote}
+                   value={note}
+                   multiline={true}
                    placeholderTextColor={'gray'}
                    placeholder={"write your note"}
-
+                   textAlignVertical={'top'}
               />
     
     
@@ -121,16 +131,26 @@ export default function WriteNote ({navigation}: {navigation: any}){
     
       },
       input:{
-        height: hp('17%'),
+        height: hp('85%'),
         width: wp('97%'),
         color: 'black',
         fontSize: hp('1.80%'),
-        paddingLeft: wp('2%'),
-        marginLeft:wp('3'),
+        textAlign:'justify',
+        marginLeft:wp('2'),
+        
 
     
     
       },
+      title:{
+        height: hp('7%'),
+        width: wp('97%'),
+        color: 'black',
+        fontSize: hp('1.80%'),
+        marginLeft:wp('2'),
+
+
+      }
     
     
     
