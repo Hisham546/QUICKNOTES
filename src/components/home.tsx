@@ -10,28 +10,36 @@ from "react-native";
 import CardView from 'react-native-cardview';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import firestore from '@react-native-firebase/firestore';
+import firebase from '@react-native-firebase/app';
+import { useFocusEffect } from '@react-navigation/native';
 
+interface Note {  //setting the interface to specify the structure of data we gonna get
+  Description: string;
+  Heading: string;
+}
 export default function Home({navigation}: {navigation: any}){
-const [notes,setNotes]=useState<string>('0')
+
+const [notes,setNotes]=useState<Note[]>([]);
 
 
 const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
 
 
-useEffect(() => {
+useFocusEffect(
+  React.useCallback(() => {
   
-firestore()
-.collection('Notes')
-.get()
-.then(querySnapshot => {
-  console.log('notes ', querySnapshot.size);
+  firebase.firestore().collection('notes').get().then((querySnapshot) => {
+    querySnapshot.forEach(snapshot => {
+        let data = snapshot.data();
+         console.log(data)
+        const noteData = data as Note; // Cast DocumentData to the Note type
+        setNotes(prevNotes => [...prevNotes,noteData]);
+    })
+})
+}, [])
+);
 
-  querySnapshot.forEach(documentSnapshot => {
-    console.log('notes ', documentSnapshot.id, documentSnapshot.data());
-  });
-});
-}, []);
-
+console.log(notes);
 
 
 return(
@@ -47,13 +55,26 @@ return(
                   </TouchableOpacity>
     </View>
     <View style={styles.firstView}>
-{/* <CardView
-            cornerRadius={5}
-            style={styles.item}>
+    <FlatList
+             showsVerticalScrollIndicator={false}
+             numColumns={2}
+             data={notes || []}
+             style={{backgroundColor:'white',width:wp('99')}}
+             renderItem={({item}) =>
+           <>
+           <CardView
+          cornerRadius={5}
+             style={styles.noteCard}>
               <TouchableOpacity activeOpacity={1} >
+        
+               <Text style={{fontSize:hp('1.70'),letterSpacing:wp('.10%'),minWidth:wp('15'),marginTop:hp('2'),fontWeight:'400',color:'black'}}>{item.Description}</Text>
+                </TouchableOpacity>
+           </CardView>
 
-              </TouchableOpacity>
-</CardView>*/}
+         </>
+              }
+
+          />
 </View>
 <View style={styles.secondView}>
            
@@ -146,6 +167,21 @@ userLogo:{
      justifyContent:'flex-end',
 
   },
+  noteCard: {
+    height : hp('27%'),
+    width : wp(' 50%'),
+    backgroundColor:'white',
+    borderRadius:8,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.9,
+    shadowRadius: 3,
+    elevation: 6,
+    marginRight:wp('1'),
+
+    marginTop:hp('.80%'),
+    marginBottom:hp('.50')
+ },
 
 
 
