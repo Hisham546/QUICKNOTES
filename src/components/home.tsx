@@ -9,12 +9,31 @@ TextInput}
 from "react-native";
 import CardView from 'react-native-cardview';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import firestore from '@react-native-firebase/firestore';
 
 export default function Home({navigation}: {navigation: any}){
 const [notes,setNotes]=useState<string>('0')
 
 
 const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
+
+
+useEffect(() => {
+  
+firestore()
+.collection('Notes')
+.get()
+.then(querySnapshot => {
+  console.log('notes ', querySnapshot.size);
+
+  querySnapshot.forEach(documentSnapshot => {
+    console.log('notes ', documentSnapshot.id, documentSnapshot.data());
+  });
+});
+}, []);
+
+
+
 return(
 
     <View style={styles.mainContainer}>

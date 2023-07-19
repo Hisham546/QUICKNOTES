@@ -10,12 +10,41 @@ from "react-native";
 import CardView from 'react-native-cardview';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import firestore from '@react-native-firebase/firestore';
+import firebase from '@react-native-firebase/app';
 
 export default function WriteNote ({navigation}: {navigation: any}){
-const usersCollection = firestore().collection('Users');
-console.log(usersCollection)
+
+const usersCollection = firestore().collection('notes');
+const userRef = usersCollection.doc();
+
     const [title, onChangeTitle] = React.useState('');
     const [note, onChangeNote] = React.useState('');
+
+
+
+
+
+    const save=()=> {
+      firestore()
+      .collection('notes')
+      .doc()
+      .set({
+        Heading: title,
+        Description: note,
+      })
+      .then(() => {
+      console.log('added')
+      });
+      }
+ 
+
+
+
+
+
+
+
+
 
     return(
 
@@ -24,7 +53,9 @@ console.log(usersCollection)
             <TouchableOpacity onPress={()=> navigation.navigate('Home')}>
            <MaterialIcon name={'arrow-left'} size={hp('3%')} color={'black'} style={{marginLeft:wp('2')}}  />
            </TouchableOpacity>
-           <MaterialIcon name={'content-save'} size={hp('3%')} color={'black'} style={{marginRight:wp('15')}}  />      
+           <TouchableOpacity onPress={()=> save()}>       
+           <MaterialIcon name={'content-save'} size={hp('3%')} color={'black'} style={{marginRight:wp('15')}}  />  
+           </TouchableOpacity>    
            </View>
            <TextInput
                    style={styles.title}
