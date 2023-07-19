@@ -9,9 +9,11 @@ TextInput}
 from "react-native";
 import CardView from 'react-native-cardview';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import firestore from '@react-native-firebase/firestore';
 
 export default function WriteNote ({navigation}: {navigation: any}){
-
+const usersCollection = firestore().collection('Users');
+console.log(usersCollection)
     const [title, onChangeTitle] = React.useState('');
     const [note, onChangeNote] = React.useState('');
 
@@ -19,7 +21,9 @@ export default function WriteNote ({navigation}: {navigation: any}){
 
         <View style={styles.mainContainer}>
            <View style={styles.headingView}>
-           <MaterialIcon name={'arrow-left'} size={hp('3%')} color={'black'}   />
+            <TouchableOpacity onPress={()=> navigation.navigate('Home')}>
+           <MaterialIcon name={'arrow-left'} size={hp('3%')} color={'black'} style={{marginLeft:wp('2')}}  />
+           </TouchableOpacity>
            <MaterialIcon name={'content-save'} size={hp('3%')} color={'black'} style={{marginRight:wp('15')}}  />      
            </View>
            <TextInput
