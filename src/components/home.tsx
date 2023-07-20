@@ -50,12 +50,13 @@ return(
 
     <View style={styles.mainContainer}>
     <View style={styles.headingView}>
+    <MaterialIcon name="feather" size={hp('3.20%')} color="black"  style={{marginLeft:wp('2')}} />
       <Text style={styles.headerText}> My  Notes</Text>
       <TouchableOpacity>
-        <Image
+        {/*<Image
            style={styles.userLogo}
            source={image}
-        />
+/>*/}
       </TouchableOpacity>
      </View>
     <View style={styles.firstView}>
@@ -70,7 +71,7 @@ return(
            <CardView
           cornerRadius={5}
              style={styles.noteCard}>
-              <View activeOpacity={1} >
+              <View  >
                        <Text style={{fontSize:hp('1.70'),letterSpacing:wp('.10%'),minWidth:wp('15'),marginTop:hp('2'),fontFamily:'Manrope-Bold',color:'black'}}>{item.Heading}</Text>
                <Text style={{fontSize:hp('1.70'),letterSpacing:wp('.10%'),minWidth:wp('15'),marginTop:hp('2'),fontFamily:'Manrope-Regular',color:'black'}}>{item.Description}</Text>
                 </View>
@@ -86,7 +87,7 @@ return(
          
 <View style={styles.secondView}>
 <TouchableOpacity activeOpacity={.9} style={styles.writeButton} onPress={() => navigation.navigate('WriteNote')}>       
-    <MaterialIcon name="pencil-outline" size={hp('3.20%')} color="white"  />
+    <MaterialIcon name="feather" size={hp('3.20%')} color="white"  />
    
  </TouchableOpacity>    
              
@@ -120,7 +121,7 @@ headingView:{
 backgroundColor:'white',
 width:wp('100'),
 height:hp('8'),
-justifyContent:'space-between',
+//justifyContent:'space-evenly',
 flexDirection:'row',
 alignItems:'center'
 
