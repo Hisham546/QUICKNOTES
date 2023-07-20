@@ -10,13 +10,7 @@ from "react-native";
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { FloatingAction } from "react-native-floating-action";
 export default function FloatingButton({navigation}: {navigation: any}){
-return(
-    <TouchableOpacity activeOpacity={.9} style={styles.writeButton} onPress={() => navigation.navigate('WriteNote')}>       
-    <MaterialIcon name="pencil-outline" size={hp('3.20%')} color="white"  />
-   
- </TouchableOpacity>
 
-)
 
 }
 
