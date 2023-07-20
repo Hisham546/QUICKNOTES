@@ -12,11 +12,13 @@ import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
 import { useFocusEffect } from '@react-navigation/native';
+import FloatingButton from "./floatingButton/floatingButton";
 
 interface Note {  //setting the interface to specify the structure of data we gonna get
   Description: string;
   Heading: string;
 }
+
 export default function Home({navigation}: {navigation: any}){
 
 const [notes,setNotes]=useState<Note[]>([]);
@@ -25,9 +27,7 @@ const [notes,setNotes]=useState<Note[]>([]);
 const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
 
 
-useFocusEffect(
-  React.useCallback(() => {
-  
+useEffect(() => {
   firebase.firestore().collection('notes').get().then((querySnapshot) => {
     querySnapshot.forEach(snapshot => {
         let data = snapshot.data();
@@ -36,8 +36,11 @@ useFocusEffect(
         setNotes(prevNotes => [...prevNotes,noteData]);
     })
 })
-}, [])
-);
+
+}, []);
+
+  
+
 
 console.log(notes);
 
@@ -46,20 +49,20 @@ return(
 
     <View style={styles.mainContainer}>
     <View style={styles.headingView}>
-    <Text style={styles.headerText}> My  Notes</Text>
-    <TouchableOpacity>
-    <Image
-        style={styles.userLogo}
-        source={image}
-      />
-                  </TouchableOpacity>
-    </View>
+      <Text style={styles.headerText}> My  Notes</Text>
+      <TouchableOpacity>
+        <Image
+           style={styles.userLogo}
+           source={image}
+        />
+      </TouchableOpacity>
+     </View>
     <View style={styles.firstView}>
-    <FlatList
+     <FlatList
              showsVerticalScrollIndicator={false}
              numColumns={2}
              data={notes || []}
-             style={{backgroundColor:'white',width:wp('99')}}
+             style={{backgroundColor:'white',height:hp('100'),width:wp('99')}}
              renderItem={({item}) =>
            <>
            <CardView
@@ -74,15 +77,19 @@ return(
          </>
               }
 
-          />
-</View>
+            />
+
+
+         
 <View style={styles.secondView}>
+<FloatingButton navigation={navigation} />        
+             
+               </View>
+  
            
-           <TouchableOpacity activeOpacity={.9} style={styles.writeButton} onPress={() => navigation.navigate('WriteNote')} >       
-              <MaterialIcon name="pencil-outline" size={hp('3.20%')} color="white"  />
-              <Text style={{color:'white',fontSize:hp('1.80')}}> Create</Text>
-           </TouchableOpacity>
            </View>
+         
+          
 </View>
 
 
@@ -99,7 +106,7 @@ return(
 const styles = StyleSheet.create({
 
 mainContainer:{
-flex:1,
+  flex: 1,
 backgroundColor:'white'
 
 },
@@ -110,6 +117,22 @@ height:hp('8'),
 justifyContent:'space-between',
 flexDirection:'row',
 alignItems:'center'
+
+},
+firstView:{
+  width:wp('100'),
+  height:hp('92'),
+  backgroundColor:'white',
+  justifyContent:'flex-end'
+
+
+},
+secondView:{
+   width:wp('100'),
+   height:hp('8'),
+   flexDirection:'row',
+   justifyContent:'center',
+   backgroundColor:'white',
 
 },
 headerText:{
@@ -149,24 +172,15 @@ userLogo:{
     backgroundColor:'#068FFF',
     justifyContent:'space-evenly',
     alignItems:'center',
-    marginRight:wp('5'),
-    flexDirection:'row'
+    flexDirection:'row',
+    position: 'absolute',
+
+    // bottom: 10,
+    right: 10,
 
 
   },
-  firstView:{
-   width:wp('100'),
-   height:hp('80'),
 
-
-  },
-  secondView:{
-     width:wp('100'),
-     height:hp('12'),
-     flexDirection:'row',
-     justifyContent:'flex-end',
-
-  },
   noteCard: {
     height : hp('27%'),
     width : wp(' 50%'),
