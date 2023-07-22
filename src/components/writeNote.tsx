@@ -11,6 +11,7 @@ import CardView from 'react-native-cardview';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
+import Toast from "react-native-simple-toast";
 
 export default function WriteNote ({navigation}: {navigation: any}){
 
@@ -21,10 +22,12 @@ const userRef = usersCollection.doc();
     const [note, onChangeNote] = React.useState('');
 
 
-
-
-
+ 
     const save=()=> {
+    if(note == ''){
+      Toast.show('Write something first!.', Toast.LONG);
+      console.log('hi')
+    }else{
       firestore()
       .collection('notes')
       .doc()
@@ -33,8 +36,10 @@ const userRef = usersCollection.doc();
         Description: note,
       })
       .then(() => {
-      console.log('added')
+        console.log('Your note has been saved.');
+        console.log('added');
       });
+     }
       }
  
 
