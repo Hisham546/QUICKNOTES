@@ -23,9 +23,9 @@ const windowHeight = Dimensions.get('window').height;
     const [title, onChangeTitle] = React.useState('');
     const [note, onChangeNote] = React.useState('');
 const data = [
-    { label: 'Item 1', value: '1' },
-    { label: 'Item 2', value: '2' },
-    { label: 'Item 3', value: '3' },
+    { label: 'Normal', value: '1' },
+    { label: 'Important', value: '2' },
+    { label: 'High Priority', value: '3' },
   ];
 
   const [value, setValue] = useState(null);
@@ -95,7 +95,7 @@ const data = [
                     maxHeight={300}
                     labelField="label"
                     valueField="value"
-                    placeholder="Select item"
+                    placeholder="Select type"
                     value={value}
                     onChange={item => {
                       setValue(item.value);
@@ -237,14 +237,11 @@ const data = [
         fontSize: 16,
       },
       selectedTextStyle: {
-        fontSize: 16,
+        fontSize: hp('1.60'),
       },
       iconStyle: {
         width: 20,
         height: 20,
       },
-      inputSearchStyle: {
-        height: 40,
-        fontSize: 16,
-      },
+
   })
