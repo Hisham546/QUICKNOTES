@@ -23,28 +23,48 @@ const userRef = usersCollection.doc();
 
 
  
-    const save=()=> {
+    const save= async()=> {
     if(note == ''){
       Toast.show('Write something first!.', Toast.LONG);
       console.log('hi')
     }else{
-      firestore()
-      .collection('notes')
-      .doc()
-      .set({
-        Heading: title,
-        Description: note,
+    await firestore().collection('notes').doc()
+         .set({
+           Heading: title,
+           Description: note,
       })
       .then(() => {
-        console.log('Your note has been saved.');
-        console.log('added');
+              Toast.show('Your note has been saved.', Toast.SHORT);
+       // console.log('Your note has been saved.');
+        //console.log('added');
       });
      }
       }
  
 
-
-
+//       function delay(ms: number | undefined) {
+//         return new Promise(resolve => setTimeout(resolve, ms));
+//       }
+//
+//       // This is an async function that does something asynchronously (bakes a cake in our example).
+//       async function bakeCake() {
+//         console.log("Putting the cake in the oven...");
+//
+//         // This line waits for 2 seconds (the cake is baking).
+//         await delay(2000);
+//
+//         console.log("Cake is ready!");
+//       }
+//
+//
+//    const test=() => {
+//
+//     console.log("Start baking process!");
+//     bakeCake(); // This starts the async process but doesn't wait for it to finish.
+//     console.log("Doing other things..."); // While the cake is baking, we can do other tasks.
+//
+//    }
+//
 
 
 
@@ -58,7 +78,7 @@ const userRef = usersCollection.doc();
             <TouchableOpacity onPress={()=> navigation.navigate('Home')}>
            <MaterialIcon name={'arrow-left'} size={hp('3%')} color={'black'} style={{marginLeft:wp('2')}}  />
            </TouchableOpacity>
-           <TouchableOpacity onPress={()=> save()}>       
+           <TouchableOpacity onPress={()=>    save()}>
            <MaterialIcon name={'content-save'} size={hp('3%')} color={'black'} style={{marginRight:wp('15')}}  />  
            </TouchableOpacity>    
            </View>
@@ -100,14 +120,14 @@ const userRef = usersCollection.doc();
     }
     
     
-    const styles = StyleSheet.create({
+ const styles = StyleSheet.create({
     
-    mainContainer:{
+  mainContainer:{
     flex:1,
     backgroundColor:'white'
     
-    },
-    headingView:{
+  },
+  headingView:{
     backgroundColor:'white',
     width:wp('100'),
     height:hp('8'),
@@ -115,23 +135,20 @@ const userRef = usersCollection.doc();
     flexDirection:'row',
     alignItems:'center'
     
-    },
-    headerText:{
+  },
+  headerText:{
     color:'black',
     fontFamily:'Manrope-Bold',
     fontSize:hp('2.20'),
     marginLeft:wp('2')
-    },
-    userLogo:{
+ },
+ userLogo:{
       width:30,
       height:30,
       borderRadius:15,
       marginRight:wp(3)
-      
-      
-        },
-    
-      item: {
+  },
+  item: {
          height : hp('97%'),
          width : wp(' 97%'),
          backgroundColor:'white',
@@ -144,8 +161,8 @@ const userRef = usersCollection.doc();
          marginRight:wp('1'),
          marginLeft: wp('1.5%'),
          marginTop:hp('1.5%'),
-      },
-      writeButton:{
+  },
+  writeButton:{
         width:wp('35'),
         height:hp('6'),
         borderRadius:25,
@@ -154,51 +171,31 @@ const userRef = usersCollection.doc();
         alignItems:'center',
         marginRight:wp('5'),
         flexDirection:'row'
-    
-    
-      },
-      firstView:{
+ },
+ firstView:{
        width:wp('100'),
        height:hp('80'),
-    
-    
-      },
-      secondView:{
+ },
+  secondView:{
          width:wp('100'),
          height:hp('12'),
          flexDirection:'row',
          justifyContent:'flex-end',
-    
-      },
-      input:{
+  },
+  input:{
         height: hp('85%'),
         width: wp('97%'),
         color: 'black',
         fontSize: hp('1.80%'),
         textAlign:'justify',
         marginLeft:wp('2'),
-        
-
-    
-    
-      },
-      title:{
+ },
+  title:{
         height: hp('7%'),
         width: wp('97%'),
         color: 'black',
         fontSize: hp('1.80%'),
         marginLeft:wp('2'),
 
-
-      }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    })
+  }
+  })

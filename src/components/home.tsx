@@ -28,7 +28,8 @@ const image = {uri: 'https://legacy.reactjs.org/logo-og.png'};
 
 useFocusEffect(
   React.useCallback(() => {
-  firestore().collection('notes').get().then((querySnapshot) => {
+    async function getNotes(){
+ await firestore().collection('notes').get().then((querySnapshot) => {
     const fetchedNotes: Note[] = []; // Create an empty array to hold the fetched notes
     querySnapshot.forEach(snapshot => {
       const data = snapshot.data();
@@ -38,6 +39,8 @@ useFocusEffect(
 
     setNotes(fetchedNotes); // Set the state with the complete array of fetched notes
   });
+}
+getNotes()
 }, [])
 );
 
