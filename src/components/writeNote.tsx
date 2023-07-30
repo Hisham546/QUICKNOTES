@@ -5,30 +5,37 @@ View,
 Image,
 Text,Button,PermissionsAndroid,
 StyleSheet,TouchableOpacity,FlatList,ImageBackground,
-TextInput}
+TextInput,Dimensions}
 from "react-native";
 import CardView from 'react-native-cardview';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
 import Toast from "react-native-simple-toast";
+import { Dropdown } from 'react-native-element-dropdown';
 
 export default function WriteNote ({navigation}: {navigation: any}){
 
 const usersCollection = firestore().collection('notes');
 const userRef = usersCollection.doc();
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
     const [title, onChangeTitle] = React.useState('');
     const [note, onChangeNote] = React.useState('');
+const data = [
+    { label: 'Item 1', value: '1' },
+    { label: 'Item 2', value: '2' },
+    { label: 'Item 3', value: '3' },
+  ];
 
+  const [value, setValue] = useState(null);
 
- 
     const save= async()=> {
-    if(note == ''){
-      Toast.show('Write something first!.', Toast.LONG);
-      console.log('hi')
-    }else{
-    await firestore().collection('notes').doc()
+       if(note == ''){
+           Toast.show('Write something first!.', Toast.LONG);
+
+        }else{
+      await firestore().collection('notes').doc()
          .set({
            Heading: title,
            Description: note,
@@ -78,9 +85,27 @@ const userRef = usersCollection.doc();
             <TouchableOpacity onPress={()=> navigation.navigate('Home')}>
            <MaterialIcon name={'arrow-left'} size={hp('3%')} color={'black'} style={{marginLeft:wp('2')}}  />
            </TouchableOpacity>
-           <TouchableOpacity onPress={()=>    save()}>
+  <Dropdown
+                    style={styles.dropdown}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    inputSearchStyle={styles.inputSearchStyle}
+                    iconStyle={styles.iconStyle}
+                    data={data}
+                    maxHeight={300}
+                    labelField="label"
+                    valueField="value"
+                    placeholder="Select item"
+                    value={value}
+                    onChange={item => {
+                      setValue(item.value);
+                    }}
+
+                  />
+           <TouchableOpacity onPress={()=> save()}>
            <MaterialIcon name={'content-save'} size={hp('3%')} color={'black'} style={{marginRight:wp('15')}}  />  
-           </TouchableOpacity>    
+           </TouchableOpacity>
+
            </View>
            <TextInput
                    style={styles.title}
@@ -197,5 +222,29 @@ const userRef = usersCollection.doc();
         fontSize: hp('1.80%'),
         marginLeft:wp('2'),
 
-  }
+  },
+   dropdown: {
+        margin: 16,
+        height:hp('10'),
+        width:wp('50'),
+        borderBottomColor: 'gray',
+        borderBottomWidth: 0.5,
+      },
+      icon: {
+        marginRight: 5,
+      },
+      placeholderStyle: {
+        fontSize: 16,
+      },
+      selectedTextStyle: {
+        fontSize: 16,
+      },
+      iconStyle: {
+        width: 20,
+        height: 20,
+      },
+      inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+      },
   })
