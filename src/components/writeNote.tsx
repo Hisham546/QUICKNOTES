@@ -23,12 +23,12 @@ const windowHeight = Dimensions.get('window').height;
     const [title, onChangeTitle] = React.useState('');
     const [note, onChangeNote] = React.useState('');
 const data = [
-    { label: 'Normal', value: '1' },
-    { label: 'Important', value: '2' },
-    { label: 'High Priority', value: '3' },
+    { label: 'Normal', value: 'Normal' },
+    { label: 'Important', value: 'Important' },
+    { label: 'High Priority', value: 'High Priority' },
   ];
 
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState<string>();
 
     const save= async()=> {
        if(note == ''){
@@ -37,6 +37,7 @@ const data = [
         }else{
       await firestore().collection('notes').doc()
          .set({
+           type:value,
            Heading: title,
            Description: note,
       })
@@ -89,7 +90,6 @@ const data = [
                     style={styles.dropdown}
                     placeholderStyle={styles.placeholderStyle}
                     selectedTextStyle={styles.selectedTextStyle}
-                    inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
                     data={data}
                     maxHeight={300}

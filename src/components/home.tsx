@@ -13,7 +13,8 @@ import firestore from '@react-native-firebase/firestore';
 import FloatingButton from "./floatingButton/floatingButton";
 import { useTheme } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
-interface Note {  //setting the interface to specify the structure of data we gonna get
+interface Note {
+  type: any;  //setting the interface to specify the structure of data we gonna get
   Description: string;
   Heading: string;
 }
@@ -73,8 +74,11 @@ return(
               <TouchableOpacity activeOpacity={1} onPress={()=> navigation.navigate('WriteNote')} >
            <CardView
           cornerRadius={5}
-             style={styles.noteCard}>
+             style={[styles.noteCard,{backgroundColor:(item.type) === '1' ? 'white':'white'}]}>
               <View  >
+                <View style={{width:wp('25'),marginLeft:wp('25'),height:hp('4'),backgroundColor:'gray',justifyContent:'center',alignItems:'center'}}>
+                  <Text style={{fontSize:hp('1.40'),color:'white'}}>{item.type}</Text>
+                </View>
                        <Text style={{fontSize:hp('1.70'),letterSpacing:wp('.10%'),minWidth:wp('15'),marginTop:hp('2'),fontFamily:'Manrope-Bold',color:'black'}}>{item.Heading}</Text>
                <Text style={{fontSize:hp('1.70'),letterSpacing:wp('.10%'),minWidth:wp('15'),marginTop:hp('2'),fontFamily:'Manrope-Regular',color:'black'}}>{item.Description}</Text>
                 </View>
@@ -192,7 +196,7 @@ userLogo:{
   noteCard: {
     height : hp('27%'),
     width : wp(' 50%'),
-    backgroundColor:'#f4f9ff',
+   // backgroundColor:'#f4f9ff',
     borderRadius:8,
 
    // elevation: 6,
