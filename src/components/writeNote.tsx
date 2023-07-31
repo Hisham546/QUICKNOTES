@@ -86,16 +86,17 @@ const data = [
 
         <View style={styles.mainContainer}>
            <View style={styles.headingView}>
-            <TouchableOpacity onPress={()=> navigation.navigate('Home')}>
+            <TouchableOpacity  activeOpacity={1} onPress={()=> navigation.navigate('Home')}>
            <MaterialIcon name={'arrow-left'} size={hp('3%')} color={'black'} style={{marginLeft:wp('2')}}  />
            </TouchableOpacity>
   <Dropdown
                     style={styles.dropdown}
                     placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    iconStyle={styles.iconStyle}
+                    selectedTextStyle={styles.selectedTextStyle}  
+                    containerStyle={{backgroundColor:'white'}} 
+                    itemTextStyle={{color:'black',fontSize:hp('1.50')}}   
                     data={data}
-                    maxHeight={300}
+                    maxHeight={250}
                     labelField="label"
                     valueField="value"
                     placeholder="Select type"
@@ -105,7 +106,7 @@ const data = [
                     }}
 
                   />
-           <TouchableOpacity onPress={()=> save()}>
+           <TouchableOpacity style={{width:wp('8'),height:hp('5'),backgroundColor:'#068FFF'}} onPress={()=> save()}>
            <MaterialIcon name={'content-save'} size={hp('3%')} color={'black'} style={{marginRight:wp('15')}}  />  
            </TouchableOpacity>
 
@@ -227,24 +228,18 @@ const data = [
 
   },
    dropdown: {
-        margin: 16,
-        height:hp('10'),
-        width:wp('50'),
-        borderBottomColor: 'gray',
-        borderBottomWidth: 0.5,
-      },
-      icon: {
-        marginRight: 5,
+      //  margin: 16,
+        height:hp('4'),
+        width:wp('30'),
       },
       placeholderStyle: {
-        fontSize: 16,
+        fontSize:hp('1.50'),
+        color:'black',
       },
       selectedTextStyle: {
-        fontSize: hp('1.60'),
-      },
-      iconStyle: {
-        width: 20,
-        height: 20,
+        fontSize: hp('1.50'),
+        color:'black',
+        fontFamily:'Manrope-Medium'
       },
 
   })
