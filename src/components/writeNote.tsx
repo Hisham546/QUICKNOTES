@@ -106,8 +106,10 @@ const data = [
                     }}
 
                   />
-           <TouchableOpacity style={{width:wp('8'),height:hp('5'),backgroundColor:'#068FFF'}} onPress={()=> save()}>
-           <MaterialIcon name={'content-save'} size={hp('3%')} color={'black'} style={{marginRight:wp('15')}}  />  
+           <TouchableOpacity style={{width:wp('25'),height:hp('4.5'),borderRadius:4,backgroundColor:'#78C1F3',
+           alignItems:'center',justifyContent:'center',marginRight:wp('5'),flexDirection:'row'}} onPress={()=> save()}>
+            <Text style={{color:'white',fontSize:hp('1.45'),fontFamily:'Manrope-Bold'}}>Save </Text>
+           <MaterialIcon name={'content-save'} size={hp('2.20%')} color={'white'} style={{marginLeft:wp('2')}} />  
            </TouchableOpacity>
 
            </View>
