@@ -68,7 +68,7 @@ return(
              showsVerticalScrollIndicator={false}
              numColumns={2}
              data={notes}
-             style={{backgroundColor:'white',height:hp('100'),width:wp('97.50'),marginLeft:wp('1')}}
+             style={{backgroundColor:'#F6F4EB',height:hp('100'),width:wp('98.50'),marginLeft:wp('1')}}
              renderItem={({item}) =>
            <>
               <TouchableOpacity activeOpacity={1} onPress={()=> navigation.navigate('WriteNote')} >
@@ -76,8 +76,8 @@ return(
           cornerRadius={5}
              style={[styles.noteCard,{backgroundColor:(item.type) === '1' ? 'white':'white'}]}>
               <View  >
-                <View style={{width:wp('25'),marginLeft:wp('25'),height:hp('4'),backgroundColor:'gray',justifyContent:'center',alignItems:'center'}}>
-                  <Text style={{fontSize:hp('1.40'),color:'white'}}>{item.type}</Text>
+                <View style={{width:wp('22'),marginLeft:wp('27'),height:hp('3.5'),backgroundColor:'gray',justifyContent:'center',alignItems:'center'}}>
+                  <Text style={{fontSize:hp('1.30'),color:'white'}}>{item.type}</Text>
                 </View>
                        <Text style={{fontSize:hp('1.70'),letterSpacing:wp('.10%'),minWidth:wp('15'),marginTop:hp('2'),fontFamily:'Manrope-Bold',color:'black'}}>{item.Heading}</Text>
                <Text style={{fontSize:hp('1.70'),letterSpacing:wp('.10%'),minWidth:wp('15'),marginTop:hp('2'),fontFamily:'Manrope-Regular',color:'black'}}>{item.Description}</Text>
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
 
 mainContainer:{
   flex: 1,
-backgroundColor:'white'
+backgroundColor:'#F6F4EB'
 
 },
 headingView:{
@@ -146,7 +146,7 @@ secondView:{
    height:hp('8'),
    flexDirection:'row',
    justifyContent:'center',
-   backgroundColor:'white',
+   backgroundColor:'#F6F4EB',
 
 },
 headerText:{
