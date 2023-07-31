@@ -14,14 +14,17 @@ import firebase from '@react-native-firebase/app';
 import Toast from "react-native-simple-toast";
 import { Dropdown } from 'react-native-element-dropdown';
 
-export default function WriteNote ({navigation}: {navigation: any}){
+export default function WriteNote ({navigation}: {navigation: any},{route}:{route:any}){
 
-const usersCollection = firestore().collection('notes');
-const userRef = usersCollection.doc();
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+     const usersCollection = firestore().collection('notes');
+
+   const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
     const [title, onChangeTitle] = React.useState('');
     const [note, onChangeNote] = React.useState('');
+
+   // const notesData =route.params ? route.params.notes : null;
+//console.log(notesData)
 const data = [
     { label: 'Normal', value: 'Normal' },
     { label: 'Important', value: 'Important' },
