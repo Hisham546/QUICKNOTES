@@ -73,10 +73,10 @@ export default function Home({ navigation }: { navigation: any }) {
               <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('WriteNote', { notes: item })} >
                 <CardView
                   cornerRadius={5}
-                  style={[styles.noteCard, { backgroundColor: (item?.type) === '1' ? 'white' : 'white' }]}>
+                  style={[styles.noteCard]}>
                   <View  >
-                    <View style={{ width: wp('20'), marginLeft: wp('29.5'), height: hp('3'), justifyContent: 'center', alignItems: 'center', backgroundColor: (item.type) === 'High Priority' ? '#FE0000' : (item.type) === 'Important' ? '#7A9D54' : '#D8D9DA', }}>
-                      <Text style={{ fontSize: hp('1.20'), color: 'white' }}>{item.type}</Text>
+                    <View style={{ width: wp('20'), marginLeft: wp('29.5'), height: hp('3'), justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5F5' }}>
+                      <Text style={{ fontSize: hp('1.20'), color: '#A9A9A9',fontWeight:'500' }}>{item.type}</Text>
                     </View>
                     <Text style={{ fontSize: hp('1.70'), letterSpacing: wp('.10%'), minWidth: wp('15'), marginTop: hp('2'), fontFamily: 'Manrope-Bold', color: 'black' }}>{item.Heading}</Text>
                     <Text style={{ fontSize: hp('1.70'), letterSpacing: wp('.10%'), minWidth: wp('15'), marginTop: hp('2'), fontFamily: 'Manrope-Regular', color: 'black' }}>{item.Description}</Text>
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   firstView: {
     width: wp('98'),
     height: hp('92'),
-    backgroundColor: 'white',
+    backgroundColor: '#001524',
     justifyContent: 'flex-end'
 
 
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   noteCard: {
     height: hp('27%'),
     width: wp(' 50%'),
-    // backgroundColor:'#f4f9ff',
+     backgroundColor:'white',
     borderRadius: 8,
 
     // elevation: 6,

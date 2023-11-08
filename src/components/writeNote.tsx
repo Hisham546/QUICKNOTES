@@ -35,7 +35,7 @@ export default function WriteNote({ navigation }: { navigation: any }, { route }
   const [value, setValue] = useState<string>();
 
   const save = async () => {
-    if (note == '') {
+    if (title == '') {
       Toast.show('Write something first!.', Toast.LONG);
 
     } else {
