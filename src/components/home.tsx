@@ -14,7 +14,7 @@ import firestore from '@react-native-firebase/firestore';
 import { useTheme } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
 interface Note {
-  type: any;  //setting the interface to specify the structure of data we gonna get
+  type: number;  //setting the interface to specify the structure of data we  get
   Description: string;
   Heading: string;
 }
@@ -22,7 +22,6 @@ interface Note {
 export default function Home({ navigation }: { navigation: any }) {
 
   const [notes, setNotes] = useState<Note[]>([]);
-
 
   const image = { uri: 'https://legacy.reactjs.org/logo-og.png' };
 
@@ -68,13 +67,13 @@ export default function Home({ navigation }: { navigation: any }) {
           showsVerticalScrollIndicator={false}
           numColumns={2}
           data={notes}
-          style={{ backgroundColor: '#F6F4EB', height: hp('100'), width: wp('98.50'), marginLeft: wp('1') }}
+          style={{ backgroundColor: '#001524', height: hp('100'), width: wp('98.50'), marginLeft: wp('1') }}
           renderItem={({ item }) =>
             <>
               <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('WriteNote', { notes: item })} >
                 <CardView
                   cornerRadius={5}
-                  style={[styles.noteCard, { backgroundColor: (item.type) === '1' ? 'white' : 'white' }]}>
+                  style={[styles.noteCard, { backgroundColor: (item?.type) === '1' ? 'white' : 'white' }]}>
                   <View  >
                     <View style={{ width: wp('20'), marginLeft: wp('29.5'), height: hp('3'), justifyContent: 'center', alignItems: 'center', backgroundColor: (item.type) === 'High Priority' ? '#FE0000' : (item.type) === 'Important' ? '#7A9D54' : '#D8D9DA', }}>
                       <Text style={{ fontSize: hp('1.20'), color: 'white' }}>{item.type}</Text>
@@ -121,11 +120,11 @@ const styles = StyleSheet.create({
 
   mainContainer: {
     flex: 1,
-    backgroundColor: '#F6F4EB'
+    backgroundColor: '#001524'
 
   },
   headingView: {
-    backgroundColor: 'white',
+    backgroundColor: '#001524',
     width: wp('100'),
     height: hp('8'),
     //justifyContent:'space-evenly',
@@ -146,11 +145,11 @@ const styles = StyleSheet.create({
     height: hp('8'),
     flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: '#F6F4EB',
+    backgroundColor: '#001524',
 
   },
   headerText: {
-    color: 'black',
+    color: 'white',
     fontFamily: 'Manrope-Bold',
     fontSize: hp('2.20'),
     marginLeft: wp('2')

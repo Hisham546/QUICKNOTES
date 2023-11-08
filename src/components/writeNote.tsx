@@ -54,31 +54,6 @@ export default function WriteNote({ navigation }: { navigation: any }, { route }
   }
 
 
-  //       function delay(ms: number | undefined) {
-  //         return new Promise(resolve => setTimeout(resolve, ms));
-  //       }
-  //
-  //       // This is an async function that does something asynchronously (bakes a cake in our example).
-  //       async function bakeCake() {
-  //         console.log("Putting the cake in the oven...");
-  //
-  //         // This line waits for 2 seconds (the cake is baking).
-  //         await delay(2000);
-  //
-  //         console.log("Cake is ready!");
-  //       }
-  //
-  //
-  //    const test=() => {
-  //
-  //     console.log("Start baking process!");
-  //     bakeCake(); // This starts the async process but doesn't wait for it to finish.
-  //     console.log("Doing other things..."); // While the cake is baking, we can do other tasks.
-  //
-  //    }
-  //
-
-
 
 
 
