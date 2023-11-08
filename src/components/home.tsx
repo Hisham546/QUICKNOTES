@@ -13,6 +13,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import firestore from '@react-native-firebase/firestore';
 import { useTheme } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
 interface Note {
   type: number;  //setting the interface to specify the structure of data we  get
   Description: string;
@@ -20,7 +21,7 @@ interface Note {
 }
 
 export default function Home({ navigation }: { navigation: any }) {
-
+  const animationRef = useRef<LottieView>(null);
   const [notes, setNotes] = useState<Note[]>([]);
 
   const image = { uri: 'https://legacy.reactjs.org/logo-og.png' };
@@ -45,6 +46,12 @@ export default function Home({ navigation }: { navigation: any }) {
   );
 
 
+  useEffect(() => {
+    animationRef.current?.play();
+
+    // Or set a specific startFrame and endFrame with:
+    animationRef.current?.play(30, 120);
+  }, []);
 
 
 
@@ -53,7 +60,7 @@ export default function Home({ navigation }: { navigation: any }) {
 
     <View style={styles.mainContainer}>
       <View style={styles.headingView}>
-        <MaterialIcon name="feather" size={hp('3.20%')} color="black" style={{ marginLeft: wp('2') }} />
+        <MaterialIcon name="feather" size={hp('3.20%')} color="#068FFF" style={{ marginLeft: wp('2') }} />
         <Text style={styles.headerText}> My  Notes</Text>
         <TouchableOpacity>
           {/*<Image
@@ -63,32 +70,42 @@ export default function Home({ navigation }: { navigation: any }) {
         </TouchableOpacity>
       </View>
       <View style={styles.firstView}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          numColumns={2}
-          data={notes}
-          style={{ backgroundColor: '#001524', height: hp('100'), width: wp('98.50'), marginLeft: wp('1') }}
-          renderItem={({ item }) =>
-            <>
-              <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('WriteNote', { notes: item })} >
-                <CardView
-                  cornerRadius={18}
-                  style={[styles.noteCard]}>
-                  <View  >
-                    <View style={{ width: wp('20'), marginLeft: wp('29.5'), height: hp('3'), justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5F5' }}>
-                      <Text style={{ fontSize: hp('1.20'), color: '#A9A9A9',fontWeight:'500' }}>{item.type}</Text>
+        {notes.length !== 0 ?
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            numColumns={2}
+            data={notes}
+            style={{ backgroundColor: '#001524', height: hp('100'), width: wp('98.50'), marginLeft: wp('1') }}
+            renderItem={({ item }) =>
+              <>
+                <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('WriteNote', { data: item })} >
+                  <CardView
+                    cornerRadius={18}
+                    style={[styles.noteCard]}>
+                    <View  >
+                      <View style={{ width: wp('20'), marginLeft: wp('29.5'), height: hp('3'), justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5F5' }}>
+                        <Text style={{ fontSize: hp('1.20'), color: '#A9A9A9', fontWeight: '500' }}>{item.type}</Text>
+                      </View>
+                      <Text style={{
+                        fontSize: hp('2'), marginLeft: wp('1'), letterSpacing: wp('.10%'), minWidth: wp('15'),
+                        marginTop: hp('2'), fontWeight: '600', color: 'black'
+                      }}>{item.Heading}</Text>
+                      <Text style={{ fontSize: hp('1.60'), letterSpacing: wp('.10%'), minWidth: wp('15'), marginTop: hp('2'), fontFamily: 'Manrope-Regular', color: 'gray' }}>{item.Description}</Text>
                     </View>
-                    <Text style={{ fontSize: hp('2'),marginLeft:wp('1'), letterSpacing: wp('.10%'), minWidth: wp('15'),
-                     marginTop: hp('2'),fontWeight:'600', color: 'black' }}>{item.Heading}</Text>
-                    <Text style={{ fontSize: hp('1.60'), letterSpacing: wp('.10%'), minWidth: wp('15'), marginTop: hp('2'), fontFamily: 'Manrope-Regular', color: 'gray' }}>{item.Description}</Text>
-                  </View>
-                </CardView>
-              </TouchableOpacity>
+                  </CardView>
+                </TouchableOpacity>
 
-            </>
-          }
+              </>
+            }
 
-        />
+          />
+          :
+          <View>
+            <LottieView
+              ref={animationRef}
+              source={require('./empty.json')}
+            />
+          </View>}
 
 
 
@@ -196,7 +213,7 @@ const styles = StyleSheet.create({
   noteCard: {
     height: hp('27%'),
     width: wp(' 50%'),
-     backgroundColor:'white',
+    backgroundColor: 'white',
     borderRadius: 8,
 
     // elevation: 6,
