@@ -25,7 +25,7 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
   const [note, onChangeNote] = React.useState('');
 
   const notesData = route.params?.data;
-  console.log(notesData)
+  console.log(notesData.id)
   const data = [
     { label: 'Normal', value: 'Normal' },
     { label: 'Important', value: 'Important' },
@@ -34,7 +34,7 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
 
   const [value, setValue] = useState<string>();
 
-  const save = async () => {
+  const saveNotes = async () => {
     if (title == '') {
       Toast.show('Write something first!.', Toast.LONG);
 
@@ -52,9 +52,19 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
         });
     }
   }
+  const deleteNotes = async () => {
+    firestore()
+      .collection('notes')
+      .doc()
+      .delete()
+      .then(() => { 
+        navigation.navigate('Home')
+        Toast.show('Your note has been deleted.', Toast.SHORT);
+      });
+  }
 
 
-  const isNotesDataEmpty = !notesData || (typeof notesData === 'object' && Object.keys(notesData).length === 0);
+    ;
 
   return (
 
@@ -81,12 +91,20 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
             }}
           />
         ) : null}
+
         <TouchableOpacity style={{
           width: wp('25'), height: hp('4.5'), borderRadius: 4,
           alignItems: 'center', justifyContent: 'center', marginRight: wp('5'), flexDirection: 'row'
-        }} onPress={() => save()}>
+        }} onPress={() => saveNotes()}>
           <Text style={{ color: 'white', fontSize: hp('1.45'), fontFamily: 'Manrope-Bold' }}>Save </Text>
           <MaterialIcon name={'content-save'} size={hp('2.20%')} color={'white'} style={{ marginLeft: wp('2') }} />
+        </TouchableOpacity>
+        <TouchableOpacity style={{
+          width: wp('25'), height: hp('4.5'), borderRadius: 4,
+          alignItems: 'center', justifyContent: 'center', marginRight: wp('5'), flexDirection: 'row'
+        }} onPress={() => deleteNotes()}>
+          <Text style={{ color: 'white', fontSize: hp('1.45'), fontFamily: 'Manrope-Bold' }}>Delete </Text>
+          <MaterialIcon name={'delete-empty-outline'} size={hp('2.20%')} color={'white'} style={{ marginLeft: wp('2') }} />
         </TouchableOpacity>
 
       </View>
@@ -236,7 +254,7 @@ const styles = StyleSheet.create({
   descriptionDataView: {
     width: wp('100'),
     height: hp('60'),
-    marginLeft:wp('2')
+    marginLeft: wp('2')
 
 
   }
