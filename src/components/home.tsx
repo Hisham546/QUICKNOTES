@@ -83,7 +83,7 @@ export default function Home({ navigation }: { navigation: any }) {
                     cornerRadius={18}
                     style={[styles.noteCard]}>
                     <View  >
-                      <View style={{ width: wp('20'), marginLeft: wp('29.5'), height: hp('3'), justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5F5' }}>
+                      <View style={{ width: wp('20'), marginLeft: wp('29.5'), height: hp('3'),borderRadius:5, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5F5' }}>
                         <Text style={{ fontSize: hp('1.20'), color: '#A9A9A9', fontWeight: '500' }}>{item.type}</Text>
                       </View>
                       <Text style={{

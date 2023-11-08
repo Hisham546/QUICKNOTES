@@ -24,7 +24,7 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
   const [title, onChangeTitle] = React.useState('');
   const [note, onChangeNote] = React.useState('');
 
-   const notesData =route.params?.data;
+  const notesData = route.params?.data;
   console.log(notesData)
   const data = [
     { label: 'Normal', value: 'Normal' },
@@ -46,6 +46,7 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
           Description: note,
         })
         .then(() => {
+          navigation.navigate('Home')
           Toast.show('Your note has been saved.', Toast.SHORT);
           // console.log('Your note has been saved.');
           //console.log('added');
@@ -54,68 +55,72 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
   }
 
 
-
-
-
+  const isNotesDataEmpty = !notesData || (typeof notesData === 'object' && Object.keys(notesData).length === 0);
 
   return (
 
     <View style={styles.mainContainer}>
       <View style={styles.headingView}>
         <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Home')}>
-          <MaterialIcon name={'arrow-left'} size={hp('3%')} color={'black'} style={{ marginLeft: wp('2') }} />
+          <MaterialIcon name={'arrow-left'} size={hp('3%')} color={'white'} style={{ marginLeft: wp('2') }} />
         </TouchableOpacity>
-        <Dropdown
-          style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          containerStyle={{ backgroundColor: 'white' }}
-          itemTextStyle={{ color: 'black', fontSize: hp('1.50') }}
-          data={data}
-          maxHeight={250}
-          labelField="label"
-          valueField="value"
-          placeholder="Select type"
-          value={value}
-          onChange={item => {
-            setValue(item.value);
-          }}
-
-        />
+        {!notesData || (typeof notesData === 'object' && Object.keys(notesData).length === 0) ? (
+          <Dropdown
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            containerStyle={{ backgroundColor: 'white' }}
+            itemTextStyle={{ color: 'black', fontSize: hp('1.50') }}
+            data={data}
+            maxHeight={250}
+            labelField="label"
+            valueField="value"
+            placeholder="Select type"
+            value={value}
+            onChange={item => {
+              setValue(item.value);
+            }}
+          />
+        ) : null}
         <TouchableOpacity style={{
           width: wp('25'), height: hp('4.5'), borderRadius: 4,
           alignItems: 'center', justifyContent: 'center', marginRight: wp('5'), flexDirection: 'row'
         }} onPress={() => save()}>
-          <Text style={{ color: 'black', fontSize: hp('1.45'), fontFamily: 'Manrope-Bold' }}>Save </Text>
-          <MaterialIcon name={'content-save'} size={hp('2.20%')} color={'black'} style={{ marginLeft: wp('2') }} />
+          <Text style={{ color: 'white', fontSize: hp('1.45'), fontFamily: 'Manrope-Bold' }}>Save </Text>
+          <MaterialIcon name={'content-save'} size={hp('2.20%')} color={'white'} style={{ marginLeft: wp('2') }} />
         </TouchableOpacity>
 
       </View>
-      <TextInput
-        style={styles.title}
-        onChangeText={onChangeTitle}
-        value={title}
-        placeholderTextColor={'gray'}
-        placeholder={"Title"}
-        multiline={true}
-        textAlignVertical={'top'}
-      />
+      {!notesData || (typeof notesData === 'object' && Object.keys(notesData).length === 0) ? (
+        <TextInput
+          style={styles.title}
+          onChangeText={onChangeTitle}
+          value={title}
+          placeholderTextColor={'white'}
+          placeholder={"Title"}
+          multiline={true}
+          textAlignVertical={'top'}
+        />
+      ) :
+        <Text style={{ color: 'white', fontSize: hp('1.45'), fontFamily: 'Manrope-Bold' }}>{notesData?.Heading} </Text>
 
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNote}
-        value={note}
-        multiline={true}
-        placeholderTextColor={'gray'}
-        placeholder={"write your note"}
-        textAlignVertical={'top'}
-      />
+      }
+      {!notesData || (typeof notesData === 'object' && Object.keys(notesData).length === 0) ? (
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeNote}
+          value={note}
+          multiline={true}
+          placeholderTextColor={'white'}
+          placeholder={"write your note"}
+          textAlignVertical={'top'}
+        />
+      ) :
+        <Text style={{ color: 'white', fontSize: hp('1.45'), fontFamily: 'Manrope-Bold' }}>{notesData?.Heading} </Text>
+
+      }
 
 
-      <View style={styles.secondView}>
-
-
-      </View>
     </View>
 
 
@@ -133,11 +138,11 @@ const styles = StyleSheet.create({
 
   mainContainer: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: '#001524'
 
   },
   headingView: {
-    backgroundColor: 'white',
+    backgroundColor: '#001524',
     width: wp('100'),
     height: hp('8'),
     justifyContent: 'space-between',
@@ -194,7 +199,7 @@ const styles = StyleSheet.create({
   input: {
     height: hp('85%'),
     width: wp('97%'),
-    color: 'black',
+    color: 'white',
     fontSize: hp('1.80%'),
     textAlign: 'justify',
     marginLeft: wp('2'),
@@ -202,7 +207,7 @@ const styles = StyleSheet.create({
   title: {
     height: hp('7%'),
     width: wp('97%'),
-    color: 'black',
+    color: 'white',
     fontSize: hp('1.80%'),
     marginLeft: wp('2'),
 
@@ -214,7 +219,7 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: hp('1.50'),
-    color: 'black',
+    color: 'white',
   },
   selectedTextStyle: {
     fontSize: hp('1.50'),
