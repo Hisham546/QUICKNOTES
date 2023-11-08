@@ -48,8 +48,7 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
         .then(() => {
           navigation.navigate('Home')
           Toast.show('Your note has been saved.', Toast.SHORT);
-          // console.log('Your note has been saved.');
-          //console.log('added');
+
         });
     }
   }
@@ -102,8 +101,9 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
           textAlignVertical={'top'}
         />
       ) :
-        <Text style={{ color: 'white', fontSize: hp('1.45'), fontFamily: 'Manrope-Bold' }}>{notesData?.Heading} </Text>
-
+        <View style={styles.headingDataView}>
+          <Text style={{ color: 'white', fontSize: hp('2.50'), fontFamily: 'Manrope-Bold', marginLeft: wp('3') }}>{notesData?.Heading} </Text>
+        </View>
       }
       {!notesData || (typeof notesData === 'object' && Object.keys(notesData).length === 0) ? (
         <TextInput
@@ -116,8 +116,9 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
           textAlignVertical={'top'}
         />
       ) :
-        <Text style={{ color: 'white', fontSize: hp('1.45'), fontFamily: 'Manrope-Bold' }}>{notesData?.Heading} </Text>
-
+        <View style={styles.descriptionDataView}>
+          <Text style={{ color: 'white', fontSize: hp('2'), fontFamily: 'Manrope-regular' }}>{notesData?.Description} </Text>
+        </View>
       }
 
 
@@ -226,5 +227,18 @@ const styles = StyleSheet.create({
     color: 'black',
     fontFamily: 'Manrope-Medium'
   },
+  headingDataView: {
+    width: wp('100'),
+    height: hp('5'),
+    justifyContent: 'center',
+
+  },
+  descriptionDataView: {
+    width: wp('100'),
+    height: hp('60'),
+    marginLeft:wp('2')
+
+
+  }
 
 })
