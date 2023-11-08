@@ -72,14 +72,15 @@ export default function Home({ navigation }: { navigation: any }) {
             <>
               <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('WriteNote', { notes: item })} >
                 <CardView
-                  cornerRadius={5}
+                  cornerRadius={18}
                   style={[styles.noteCard]}>
                   <View  >
                     <View style={{ width: wp('20'), marginLeft: wp('29.5'), height: hp('3'), justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5F5' }}>
                       <Text style={{ fontSize: hp('1.20'), color: '#A9A9A9',fontWeight:'500' }}>{item.type}</Text>
                     </View>
-                    <Text style={{ fontSize: hp('1.70'), letterSpacing: wp('.10%'), minWidth: wp('15'), marginTop: hp('2'), fontFamily: 'Manrope-Bold', color: 'black' }}>{item.Heading}</Text>
-                    <Text style={{ fontSize: hp('1.70'), letterSpacing: wp('.10%'), minWidth: wp('15'), marginTop: hp('2'), fontFamily: 'Manrope-Regular', color: 'black' }}>{item.Description}</Text>
+                    <Text style={{ fontSize: hp('2'),marginLeft:wp('1'), letterSpacing: wp('.10%'), minWidth: wp('15'),
+                     marginTop: hp('2'),fontWeight:'600', color: 'black' }}>{item.Heading}</Text>
+                    <Text style={{ fontSize: hp('1.60'), letterSpacing: wp('.10%'), minWidth: wp('15'), marginTop: hp('2'), fontFamily: 'Manrope-Regular', color: 'gray' }}>{item.Description}</Text>
                   </View>
                 </CardView>
               </TouchableOpacity>

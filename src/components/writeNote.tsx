@@ -24,8 +24,8 @@ export default function WriteNote({ navigation }: { navigation: any }, { route }
   const [title, onChangeTitle] = React.useState('');
   const [note, onChangeNote] = React.useState('');
 
-  // const notesData =route.params ? route.params.notes : null;
-  //console.log(notesData)
+  //  const notesData =route.params ? route.params.notes : null;
+  // console.log(notesData)
   const data = [
     { label: 'Normal', value: 'Normal' },
     { label: 'Important', value: 'Important' },
