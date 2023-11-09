@@ -18,33 +18,35 @@ interface Note {
   type: number;  //setting the interface to specify the structure of data we  get
   Description: string;
   Heading: string;
+  id: string;
 }
 
 export default function Home({ navigation }: { navigation: any }) {
   const animationRef = useRef<LottieView>(null);
   const [notes, setNotes] = useState<Note[]>([]);
-
+  const [id, setId] = useState<string>('');
   const image = { uri: 'https://legacy.reactjs.org/logo-og.png' };
-
 
   useFocusEffect(
     React.useCallback(() => {
       async function getNotes() {
         await firestore().collection('notes').get().then((querySnapshot) => {
           const fetchedNotes: Note[] = []; // Create an empty array to hold the fetched notes
+  
           querySnapshot.forEach(snapshot => {
             const data = snapshot.data();
-            const noteData = data as Note;
-            fetchedNotes.push(noteData); // Add the fetched noteData to the array
+            const noteData = { ...data, id: snapshot.id } as Note; // Add the document ID to the noteData
+            fetchedNotes.push(noteData); // Add the fetched noteData to the array 
+          
           });
-
+  
           setNotes(fetchedNotes); // Set the state with the complete array of fetched notes
         });
       }
-      getNotes()
+  
+      getNotes();
     }, [])
   );
-
 
   useEffect(() => {
     animationRef.current?.play();
@@ -83,7 +85,7 @@ export default function Home({ navigation }: { navigation: any }) {
                     cornerRadius={18}
                     style={[styles.noteCard]}>
                     <View  >
-                      <View style={{ width: wp('20'), marginLeft: wp('29.5'), height: hp('3'),borderRadius:5, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5F5' }}>
+                      <View style={{ width: wp('20'), marginLeft: wp('29.5'), height: hp('3'), borderRadius: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5F5' }}>
                         <Text style={{ fontSize: hp('1.20'), color: '#A9A9A9', fontWeight: '500' }}>{item.type}</Text>
                       </View>
                       <Text style={{

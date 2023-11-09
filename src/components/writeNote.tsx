@@ -25,7 +25,8 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
   const [note, onChangeNote] = React.useState('');
 
   const notesData = route.params?.data;
-  console.log(notesData.id)
+
+  console.log(notesData,'........data')
   const data = [
     { label: 'Normal', value: 'Normal' },
     { label: 'Important', value: 'Important' },
@@ -52,10 +53,10 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
         });
     }
   }
-  const deleteNotes = async () => {
+  const deleteNotes = async (id: string) => {
     firestore()
       .collection('notes')
-      .doc()
+      .doc(id)
       .delete()
       .then(() => { 
         navigation.navigate('Home')
@@ -102,7 +103,7 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
         <TouchableOpacity style={{
           width: wp('25'), height: hp('4.5'), borderRadius: 4,
           alignItems: 'center', justifyContent: 'center', marginRight: wp('5'), flexDirection: 'row'
-        }} onPress={() => deleteNotes()}>
+        }} onPress={() => deleteNotes(notesData.id)}>
           <Text style={{ color: 'white', fontSize: hp('1.45'), fontFamily: 'Manrope-Bold' }}>Delete </Text>
           <MaterialIcon name={'delete-empty-outline'} size={hp('2.20%')} color={'white'} style={{ marginLeft: wp('2') }} />
         </TouchableOpacity>
