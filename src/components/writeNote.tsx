@@ -149,12 +149,21 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Do you want to delete this notes?</Text>
-            <TouchableOpacity
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setDeletePopup(!deletePopup)}>
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </TouchableOpacity>
+            <View style={styles.headingTextView}>
+              <Text style={styles.modalText}>Do you want to delete this notes?</Text>
+            </View>
+            <View style={styles.buttonView}>
+              <TouchableOpacity
+                style={[styles.buttonClose]}
+                onPress={() => setDeletePopup(!deletePopup)}>
+                <Text style={styles.buttonTextStyle}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.buttonClose]}
+                onPress={() => deleteNotes(notesData.id)}>
+                <Text style={styles.buttonTextStyle}>Delete</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>
@@ -281,15 +290,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    //marginTop: 22,
   },
   modalView: {
-    margin: 20,
+    // margin: 20,
     backgroundColor: 'white',
-    width:wp('65'),
-    height:hp('18'),
+    width: wp('65'),
+    height: hp('18'),
     borderRadius: 20,
-    padding: 35,
+    padding: 10,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -300,25 +309,42 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
+  headingTextView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: wp('65'),
+    height: hp('7'),
+
   },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
+
   buttonClose: {
-    backgroundColor: '#2196F3',
+    width: wp('16'),
+    height: hp('3.70'),
+    backgroundColor: '#068FFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8
   },
-  textStyle: {
+  buttonTextStyle: {
     color: 'white',
     fontWeight: 'bold',
-    textAlign: 'center',
+    fontSize: hp('1.60')
+
   },
   modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
+    marginBottom: 10,
+    fontSize: hp('1.70'),
+    color: 'black'
+
   },
+  buttonView: {
+    width: wp('65'),
+    height: hp('5'),
+    marginTop: hp('3'),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: "space-evenly",
+
+  }
 
 })
