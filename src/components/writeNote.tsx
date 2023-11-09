@@ -3,8 +3,8 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import {
   View,
   Image,
-  Text, Button, PermissionsAndroid,
-  StyleSheet, TouchableOpacity, FlatList, ImageBackground,
+  Text, Modal,
+  StyleSheet, TouchableOpacity,
   TextInput, Dimensions
 }
   from "react-native";
@@ -25,8 +25,7 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
   const [note, onChangeNote] = React.useState('');
 
   const notesData = route.params?.data;
-
-  console.log(notesData, '........data')
+  const [deletePopup, setDeletePopup] = useState(false);
   const data = [
     { label: 'Normal', value: 'Normal' },
     { label: 'Important', value: 'Important' },
@@ -105,7 +104,7 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
             <TouchableOpacity style={{
               width: wp('25'), height: hp('4.5'), borderRadius: 4,
               alignItems: 'center', justifyContent: 'center', marginRight: wp('5'), flexDirection: 'row'
-            }} onPress={() => deleteNotes(notesData.id)}>
+            }} onPress={() => setDeletePopup(true)}>
               <Text style={{ color: 'white', fontSize: hp('1.45'), fontFamily: 'Manrope-Bold' }}>Delete </Text>
               <MaterialIcon name={'delete-empty-outline'} size={hp('2.20%')} color={'white'} style={{ marginLeft: wp('2') }} />
             </TouchableOpacity>
@@ -143,7 +142,22 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
           <Text style={{ color: 'white', fontSize: hp('2'), fontFamily: 'Manrope-regular' }}>{notesData?.Description} </Text>
         </View>
       }
-
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={deletePopup}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Do you want to delete this notes?</Text>
+            <TouchableOpacity
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setDeletePopup(!deletePopup)}>
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
 
     </View>
 
@@ -247,7 +261,7 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     fontSize: hp('1.50'),
-    color: 'black',
+    color: 'white',
     fontFamily: 'Manrope-Medium'
   },
   headingDataView: {
@@ -262,6 +276,49 @@ const styles = StyleSheet.create({
     marginLeft: wp('2')
 
 
-  }
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    width:wp('65'),
+    height:hp('18'),
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
 
 })
