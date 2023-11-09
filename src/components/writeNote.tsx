@@ -150,7 +150,7 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.headingTextView}>
-              <Text style={styles.modalText}>Do you want to delete this notes?</Text>
+              <Text style={styles.modalText}>Do you want to delete this note ?</Text>
             </View>
             <View style={styles.buttonView}>
               <TouchableOpacity

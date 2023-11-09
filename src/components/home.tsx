@@ -32,18 +32,18 @@ export default function Home({ navigation }: { navigation: any }) {
       async function getNotes() {
         await firestore().collection('notes').get().then((querySnapshot) => {
           const fetchedNotes: Note[] = []; // Create an empty array to hold the fetched notes
-  
+
           querySnapshot.forEach(snapshot => {
             const data = snapshot.data();
             const noteData = { ...data, id: snapshot.id } as Note; // Add the document ID to the noteData
             fetchedNotes.push(noteData); // Add the fetched noteData to the array 
-          
+
           });
-  
+
           setNotes(fetchedNotes); // Set the state with the complete array of fetched notes
         });
       }
-  
+
       getNotes();
     }, [])
   );
@@ -64,12 +64,6 @@ export default function Home({ navigation }: { navigation: any }) {
       <View style={styles.headingView}>
         <MaterialIcon name="feather" size={hp('3.20%')} color="#068FFF" style={{ marginLeft: wp('2') }} />
         <Text style={styles.headerText}> My  Notes</Text>
-        <TouchableOpacity>
-          {/*<Image
-           style={styles.userLogo}
-           source={image}
-/>*/}
-        </TouchableOpacity>
       </View>
       <View style={styles.firstView}>
         {notes.length !== 0 ?
@@ -102,12 +96,15 @@ export default function Home({ navigation }: { navigation: any }) {
 
           />
           :
-          <View>
-            <LottieView
-              ref={animationRef}
-              source={require('./empty.json')}
-            />
-          </View>}
+
+          <LottieView
+            style={{ flex: 1, width: wp('50'), height: hp('50'), marginLeft: wp('25') }}
+            ref={animationRef}
+            source={require('./empty.json')}
+            resizeMode="contain"
+
+          />
+        }
 
 
 
@@ -150,6 +147,11 @@ const styles = StyleSheet.create({
     //justifyContent:'space-evenly',
     flexDirection: 'row',
     alignItems: 'center'
+
+  },
+  LottieParent: {
+    width: wp('50'),
+    height: hp('50'),
 
   },
   firstView: {
