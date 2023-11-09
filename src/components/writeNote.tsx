@@ -26,7 +26,7 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
 
   const notesData = route.params?.data;
 
-  console.log(notesData,'........data')
+  console.log(notesData, '........data')
   const data = [
     { label: 'Normal', value: 'Normal' },
     { label: 'Important', value: 'Important' },
@@ -58,7 +58,7 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
       .collection('notes')
       .doc(id)
       .delete()
-      .then(() => { 
+      .then(() => {
         navigation.navigate('Home')
         Toast.show('Your note has been deleted.', Toast.SHORT);
       });
@@ -92,21 +92,25 @@ export default function WriteNote({ navigation, route }: { navigation: any, rout
             }}
           />
         ) : null}
-
-        <TouchableOpacity style={{
-          width: wp('25'), height: hp('4.5'), borderRadius: 4,
-          alignItems: 'center', justifyContent: 'center', marginRight: wp('5'), flexDirection: 'row'
-        }} onPress={() => saveNotes()}>
-          <Text style={{ color: 'white', fontSize: hp('1.45'), fontFamily: 'Manrope-Bold' }}>Save </Text>
-          <MaterialIcon name={'content-save'} size={hp('2.20%')} color={'white'} style={{ marginLeft: wp('2') }} />
-        </TouchableOpacity>
-        <TouchableOpacity style={{
-          width: wp('25'), height: hp('4.5'), borderRadius: 4,
-          alignItems: 'center', justifyContent: 'center', marginRight: wp('5'), flexDirection: 'row'
-        }} onPress={() => deleteNotes(notesData.id)}>
-          <Text style={{ color: 'white', fontSize: hp('1.45'), fontFamily: 'Manrope-Bold' }}>Delete </Text>
-          <MaterialIcon name={'delete-empty-outline'} size={hp('2.20%')} color={'white'} style={{ marginLeft: wp('2') }} />
-        </TouchableOpacity>
+        <View>
+          {!notesData || (typeof notesData === 'object' && Object.keys(notesData).length === 0) ? (
+            <TouchableOpacity style={{
+              width: wp('25'), height: hp('4.5'), borderRadius: 4,
+              alignItems: 'center', justifyContent: 'center', marginRight: wp('5'), flexDirection: 'row'
+            }} onPress={() => saveNotes()}>
+              <Text style={{ color: 'white', fontSize: hp('1.45'), fontFamily: 'Manrope-Bold' }}>Save </Text>
+              <MaterialIcon name={'content-save'} size={hp('2.20%')} color={'white'} style={{ marginLeft: wp('2') }} />
+            </TouchableOpacity>
+          ) :
+            <TouchableOpacity style={{
+              width: wp('25'), height: hp('4.5'), borderRadius: 4,
+              alignItems: 'center', justifyContent: 'center', marginRight: wp('5'), flexDirection: 'row'
+            }} onPress={() => deleteNotes(notesData.id)}>
+              <Text style={{ color: 'white', fontSize: hp('1.45'), fontFamily: 'Manrope-Bold' }}>Delete </Text>
+              <MaterialIcon name={'delete-empty-outline'} size={hp('2.20%')} color={'white'} style={{ marginLeft: wp('2') }} />
+            </TouchableOpacity>
+          }
+        </View>
 
       </View>
       {!notesData || (typeof notesData === 'object' && Object.keys(notesData).length === 0) ? (
